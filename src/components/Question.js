@@ -14,7 +14,15 @@ class Question extends Component {
       <div className="question">
         {this.props.info.title}
 
-        <div>{this.props.info.options.map((option, i)  => <Option text={option.text} item={i} key={i} sendAnswer={this.handleAnswer}/>)}</div>
+        <div>{this.props.info.options.map((option, i)  =>
+          <Option
+            text={option.text}
+            item={i}
+            key={i}
+            qIndex={this.props.index}
+            sendAnswer={this.handleAnswer}
+            />
+          )}</div>
       </div>
     );
   }
