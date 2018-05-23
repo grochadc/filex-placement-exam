@@ -34,7 +34,14 @@ class Test extends Component {
   render() {
     return (
       <div className="test">
-        {questions.map((question, i) => <Question info={question} index={i} key={i} checkAnswer={this.checkAnswer} />)}
+        {questions.map((question, i) =>
+          <Question
+            info={question}
+            index={i}
+            key={i}
+            checkAnswer={this.checkAnswer}
+            />
+          )}
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
