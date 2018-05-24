@@ -257,6 +257,27 @@
                      "correct":true
                   }
                ]
+            },
+            {
+               "title":"This cell phone is _____ than that one.",
+               "options":[
+                  {
+                     "text":"better",
+                     "correct":true
+                  },
+                  {
+                     "text":"good",
+                     "correct":false
+                  },
+                  {
+                     "text":"gooder",
+                     "correct":false
+                  },
+                  {
+                     "text":"well",
+                     "correct":false
+                  }
+               ]
             }
          ]
       }
