@@ -1,7 +1,6 @@
 /*jshint esversion: 6*/
 import React, {Component} from 'react';
 import Question from './Question';
-import PersonalInfo from './PersonalInfo';
 import Data from '../database/Questions.json';
 
 
@@ -35,17 +34,9 @@ class Test extends Component {
     alert(msg+' '+correctAnswers+' correct answers.');
   }
 
-  handlePersonalInfo(info){
-    //Some code to handle the personal info
-  }
-
   render() {
     return (
       <div className="test">
-      <PersonalInfo
-        sendInfo={this.handlePersonalInfo}
-        />
-
         <div className="question-form">
         {questions.map((question, i) =>
           <Question
