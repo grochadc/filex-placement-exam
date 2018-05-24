@@ -3,21 +3,19 @@ import React, {Component} from 'react';
 import Question from './Question';
 import Data from '../database/Questions.json';
 
-
-const questions = Data.questions; //From Questions.json
-
 class Test extends Component {
   constructor(props){
     super(props);
+    this.questions = Data.sections[props.section].questions; //From Questions.json
     this.state = {
-      answers: new Array(questions.length)
+      answers: new Array(this.questions.length)
     };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   checkAnswer(question, answer){
-    let correct = questions[question].options[answer].correct;
+    let correct = this.questions[question].options[answer].correct;
     let newAnswers = [
       ...this.state.answers.slice(0,question),
       correct,
@@ -37,8 +35,9 @@ class Test extends Component {
   render() {
     return (
       <div className="test">
+      <h2>Section {this.props.section+1}</h2>
         <div className="question-form">
-        {questions.map((question, i) =>
+        {this.questions.map((question, i) =>
           <Question
             info={question}
             index={i}

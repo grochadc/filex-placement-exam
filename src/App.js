@@ -5,7 +5,10 @@ import Test from './components/Test';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = { section: 'info'};
+    this.state = {
+      section: 'info',
+      testSection: 0
+    };
     this.handleInfo = this.handleInfo.bind(this);
   }
   handleInfo(info){
@@ -19,10 +22,10 @@ class App extends Component {
       <div>
       <h1>FILEX Placement Exam</h1>
       { this.state.section === 'test' ?
-        <Test /> :
+        <Test section={this.state.testSection} /> :
         this.state.section === 'info' ?
           <PersonalInfo sendInfo={this.handleInfo}/> :
-          null
+          'Incorrect section name'
       }
       </div>
     );
