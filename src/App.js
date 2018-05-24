@@ -7,15 +7,22 @@ class App extends Component {
     super(props);
     this.state = { test: false};
     this.handleClick = this.handleClick.bind(this);
+    this.handleInfo = this.handleInfo.bind(this);
   }
   handleClick(){
     this.setState({test: true});
+  }
+  handleInfo(info){
+    this.setState({
+      test: true,
+      contact: info
+    });
   }
   render() {
     return (
       this.state.test ?
         <Test /> :
-        <div><PersonalInfo /><br /><button onClick={() => this.handleClick()}> Show test </button></div>
+        <PersonalInfo sendInfo={this.handleInfo}/>
     );
   }
 }
