@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
 
+
+const majors = [
+  {value: 'agn', option: 'Agronegocios'},
+  {value: 'academico', option: 'Academico'},
+  {value: 'administrativo', option: 'Administrativo'},
+  {value: 'mcpe', option: 'Medico Cirujano Partero'},
+  {value: 'externo', option: 'Externo'},
+
+];
+
 class PersonalInfo extends Component {
   constructor(props){
     super(props);
@@ -29,12 +39,16 @@ class PersonalInfo extends Component {
   render(){
     return (
       <div className="personal-data">
-      <form onSubmit={this.handleSubmit}>
-      <label htmlFor="name">Nombre: </label><input type="text" id="name" ref="name" /> <label htmlFor="code">Codigo: </label><input type="text" id="code" ref="code"/><br />
-      <label htmlFor="major">Carrera: </label><input type="text" id="major" ref="major" /><br />
-      <label htmlFor="email">eMail: </label><input type="email" id="email" ref="email" /> <label htmlFor="cel">Celular: </label><input type="text" id="cel" ref="cellphone"/><br />
-      <button type="submit">Submit and Show Test</button>
-      </form>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="name">Nombre: </label><input type="text" id="name" ref="name" /> <label htmlFor="code">Codigo: </label><input type="text" id="code" ref="code"/><br />
+          <label htmlFor="major">Carrera: </label>
+          <select name="major" ref="major">
+            <option value="" disabled selected>Select your major</option>
+            {majors.map((m, i) => <option key={i} value={m.value}>{m.option}</option>)}
+          </select><br />
+          <label htmlFor="email">eMail: </label><input type="email" id="email" ref="email" /> <label htmlFor="cel">Celular: </label><input type="text" id="cel" ref="cellphone"/><br />
+          <button type="submit">Submit and Show Test</button>
+        </form>
       </div>
     );
   }

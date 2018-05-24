@@ -5,24 +5,26 @@ import Test from './components/Test';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = { test: false};
-    this.handleClick = this.handleClick.bind(this);
+    this.state = { section: 'info'};
     this.handleInfo = this.handleInfo.bind(this);
-  }
-  handleClick(){
-    this.setState({test: true});
   }
   handleInfo(info){
     this.setState({
-      test: true,
+      section: 'test',
       contact: info
     });
   }
   render() {
     return (
-      this.state.test ?
+      <div>
+      <h1>FILEX Placement Exam</h1>
+      { this.state.section === 'test' ?
         <Test /> :
-        <PersonalInfo sendInfo={this.handleInfo}/>
+        this.state.section === 'info' ?
+          <PersonalInfo sendInfo={this.handleInfo}/> :
+          null
+      }
+      </div>
     );
   }
 }
