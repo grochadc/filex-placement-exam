@@ -12,7 +12,7 @@ class Question extends Component {
   render() {
     return (
       <div className="question">
-        {this.props.info.title}
+        {this.props.index+1}{'. '}{this.props.info.title}
 
         <div>{this.props.info.options.map((option, i)  =>
           <Option
