@@ -19,6 +19,7 @@ class Test extends Component {
     this.setState(update(this.state, {
       questions: {$set: data.sections[nextProps.section].questions}
     }));
+    window.scrollTo(0,0);
   }
   checkAnswer(question, answer){
     let correct = this.state.questions[question].options[answer].correct;
