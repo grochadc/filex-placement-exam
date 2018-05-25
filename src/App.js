@@ -15,12 +15,13 @@ class App extends Component {
     this.state = {
       section: 'info',
       testSection: 0,
-      results: new Array(7),
+      results: [],
       finished: false,
       testID: ID()
     };
     this.handleInfo = this.handleInfo.bind(this);
     this.handleResults = this.handleResults.bind(this);
+    this.handleResultPosting = this.handleResults.bind(this);
   }
   handleInfo(info){
     let newState = update(this.state, {
@@ -32,13 +33,15 @@ class App extends Component {
 
   handleResults(res){
     let newState = update(this.state, {
-      results: {[res.section]: {$set: res.correctAnswers}},
+      results: {$push: [res.correctAnswers]},
       testSection: {$apply: (section) => section+1},
       finished: {$set: res.finished}
     });
     this.setState(newState);
+  }
 
-    if(res.finished){
+  componentDidUpdate(){
+    if(this.state.finished){
       let { testID } = this.state;
       let store = 'https://www.jsonstore.io/65d8d594a3236f5b7fb12743bd0f3854f6f2c304dd6accae5485eb9a3b9579f3/tests/'+testID;
       axios({
@@ -46,7 +49,7 @@ class App extends Component {
         url: store,
         data: {
           contact: this.state.contact,
-          results: this.state.results
+          results: [this.state.results]
         }
       });
     }
@@ -57,7 +60,7 @@ class App extends Component {
       <h1>FILEX Placement Exam</h1>
       { this.state.section === 'test' ?
           this.state.finished ?
-            <FinishedMessage testID={this.state.testID}/> :
+            <FinishedMessage testID={this.state.testID} /> :
             <Test section={this.state.testSection} sendResults={this.handleResults} /> :
               this.state.section === 'info' ?
                 <PersonalInfo sendInfo={this.handleInfo} /> :
