@@ -31,8 +31,7 @@ class Test extends Component {
   handleSubmit() {
     let correctAnswers = this.state.answers.filter(v => v).length;
     let unanswered = this.state.answers.filter(item => item===undefined).length;
-    let msg = unanswered>0? 'You didn\'t finish the test': correctAnswers >= 6 ? 'You passed!' : 'You failed!';
-    alert(msg+' '+correctAnswers+' correct answers.');
+    unanswered > 0 ? alert('You didn\'t finish the section') : null;
 
     this.props.sendResults({
       correctAnswers,
