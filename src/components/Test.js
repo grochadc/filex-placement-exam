@@ -19,9 +19,15 @@ class Test extends Component {
     this.setState(update(this.state, {
       questions: {$set: data.sections[nextProps.section].questions}
     }));
-
-        window.scrollTo(0,0);
+    window.scrollTo(0,0);
+    let elements = document.getElementsByTagName('input');
+    for(let i=0;i<elements.length;i++){
+      if(elements[i].checked){
+		      elements[i].checked = false;
+        }
+      }
   }
+
   checkAnswer(question, answer){
     let correct = this.state.questions[question].options[answer].correct;
 
