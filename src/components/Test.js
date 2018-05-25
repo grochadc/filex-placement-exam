@@ -1,28 +1,31 @@
 /*jshint esversion: 6*/
 import React, {Component} from 'react';
+import update from 'immutability-helper';
 import Question from './Question';
-import Data from '../database/Questions.json';
+import data from '../database/Questions.json';
 
 class Test extends Component {
   constructor(props){
     super(props);
-    this.questions = Data.sections[props.section].questions; //From Questions.json
     this.state = {
-      answers: new Array(this.questions.length)
+      questions: data.sections[props.section].questions, //From Questions.json
+      answers: new Array(data.sections[props.section].questions.length)
     };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState(update(this.state, {
+      questions: {$set: data.sections[nextProps.section].questions}
+    }));
+  }
   checkAnswer(question, answer){
-    let correct = this.questions[question].options[answer].correct;
-    let newAnswers = [
-      ...this.state.answers.slice(0,question),
-      correct,
-      ...this.state.answers.slice(question+1)
-    ];
+    let correct = this.state.questions[question].options[answer].correct;
 
-    this.setState({answers: newAnswers});
+    let newState = update(this.state, {answers: {[question]: {$set:correct}}});
+
+    this.setState(newState);
   }
 
   handleSubmit() {
@@ -30,6 +33,12 @@ class Test extends Component {
     let unanswered = this.state.answers.filter(item => item===undefined).length;
     let msg = unanswered>0? 'You didn\'t finish the test': correctAnswers >= 6 ? 'You passed!' : 'You failed!';
     alert(msg+' '+correctAnswers+' correct answers.');
+
+    this.props.sendResults({
+      correctAnswers,
+      section: this.props.section,
+      finished: this.props.section+1 === data.sections.length ? true : false
+    });
   }
 
   render() {
@@ -37,7 +46,7 @@ class Test extends Component {
       <div className="test">
       <h2>Section {this.props.section+1}</h2>
         <div className="question-form">
-        {this.questions.map((question, i) =>
+        {this.state.questions.map((question, i) =>
           <Question
             info={question}
             index={i}
