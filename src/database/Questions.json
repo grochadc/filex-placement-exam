@@ -278,6 +278,195 @@
                      "correct":false
                   }
                ]
+            },
+            {
+               "title":"I don't need ______ tomatoes.",
+               "options":[
+                  {
+                     "text":"a",
+                     "correct":false
+                  },
+                  {
+                     "text":"any",
+                     "correct":true
+                  },
+                  {
+                     "text":"lots",
+                     "correct":false
+                  },
+                  {
+                     "text":"some",
+                     "correct":false
+                  }
+               ]
+            },
+            {
+               "title":"Would you like ______ dinner with me?",
+               "options":[
+                  {
+                     "text":"have",
+                     "correct":false
+                  },
+                  {
+                     "text":"has",
+                     "correct":false
+                  },
+                  {
+                     "text":"having",
+                     "correct":true
+                  },
+                  {
+                     "text":"to having",
+                     "correct":false
+                  }
+               ]
+            },
+            {
+               "title":"______ you go out last night?",
+               "options":[
+                  {
+                     "text":"Do",
+                     "correct":false
+                  },
+                  {
+                     "text":"Did",
+                     "correct":true
+                  },
+                  {
+                     "text":"Was",
+                     "correct":false
+                  },
+                  {
+                     "text":"Were",
+                     "correct":false
+                  }
+               ]
+            },
+            {
+               "title":"Did you talk to _______ yesterday?",
+               "options":[
+                  {
+                     "text":"he",
+                     "correct":false
+                  },
+                  {
+                     "text":"him",
+                     "correct":true
+                  },
+                  {
+                     "text":"his",
+                     "correct":false
+                  },
+                  {
+                     "text":"he's",
+                     "correct":false
+                  }
+               ]
+            },
+            {
+               "title":"______ at ten tomorrow morning.",
+               "options":[
+                  {
+                     "text":"We met",
+                     "correct":false
+                  },
+                  {
+                     "text":"We meeting",
+                     "correct":false
+                  },
+                  {
+                     "text":"We are meet",
+                     "correct":false
+                  },
+                  {
+                     "text":"We are meeting",
+                     "correct":true
+                  }
+               ]
+            },
+            {
+               "title":"We ______ to Madonna's concert last year.",
+               "options":[
+                  {
+                     "text":"been",
+                     "correct":false
+                  },
+                  {
+                     "text":"have been",
+                     "correct":false
+                  },
+                  {
+                     "text":"gone",
+                     "correct":false
+                  },
+                  {
+                     "text":"went",
+                     "correct":true
+                  }
+               ]
+            },
+            {
+               "title":"Amy is very _____. She never tells lies.",
+               "options":[
+                  {
+                     "text":"honest",
+                     "correct":true
+                  },
+                  {
+                     "text":"organized",
+                     "correct":false
+                  },
+                  {
+                     "text":"patient",
+                     "correct":false
+                  },
+                  {
+                     "text":"reliable",
+                     "correct":false
+                  }
+               ]
+            },
+            {
+               "title":"This cellphone is very versatile. _______",
+               "options":[
+                  {
+                     "text":"It doesn't cost very much.",
+                     "correct":false
+                  },
+                  {
+                     "text":"It's easy to use.",
+                     "correct":false
+                  },
+                  {
+                     "text":"It can do many things.",
+                     "correct":true
+                  },
+                  {
+                     "text":"It's very fast.",
+                     "correct":false
+                  }
+               ]
+            },
+            {
+               "title":"I thought the movie was very _______. I loved it.",
+               "options":[
+                  {
+                     "text":"bored",
+                     "correct":false
+                  },
+                  {
+                     "text":"boring",
+                     "correct":false
+                  },
+                  {
+                     "text":"excited",
+                     "correct":false
+                  },
+                  {
+                     "text":"exciting",
+                     "correct":true
+                  }
+               ]
             }
          ]
       }
