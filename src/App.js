@@ -4,18 +4,8 @@ import update from 'immutability-helper';
 import PersonalInfo from './components/PersonalInfo';
 import FinishedMessage from './components/FinishedMessage';
 import Test from './components/Test';
-
-const ID = function () {
-  return '_' + Math.random().toString(36).substr(2, 9);
-};
-
-function conditioned(Component, props){
-  if(props.condition){
-    return <Component {...props} />;
-  } else{
-    return null;
-  }
-}
+import ID from './lib/id';
+import conditioned from './components/ConditionedComponent';
 
 const PersonalInfoWithCondition = (props) => conditioned(PersonalInfo, props);
 const TestWithCondition = (props) => conditioned(Test, props);
