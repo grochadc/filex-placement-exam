@@ -9,6 +9,18 @@ const ID = function () {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
+function conditioned(Component, props){
+  if(props.condition){
+    return <Component {...props} />;
+  } else{
+    return null;
+  }
+}
+
+const PersonalInfoWithCondition = (props) => conditioned(PersonalInfo, props);
+const TestWithCondition = (props) => conditioned(Test, props);
+const FinishedMessageWithCondition = (props) => conditioned(FinishedMessage, props);
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -58,14 +70,19 @@ class App extends Component {
     return (
       <div>
       <h1>FILEX Placement Exam</h1>
-      { this.state.section === 'test' ?
-          this.state.finished ?
-            <FinishedMessage testID={this.state.testID} /> :
-            <Test section={this.state.testSection} sendResults={this.handleResults} /> :
-              this.state.section === 'info' ?
-                <PersonalInfo sendInfo={this.handleInfo} /> :
-                'Incorrect section name'
-      }
+      <PersonalInfoWithCondition
+        condition={this.state.section === 'info'}
+        sendInfo={this.handleInfo}
+        />
+      <TestWithCondition
+        condition={this.state.section === 'test' && !this.state.finished}
+        section={this.state.testSection}
+        sendResults={this.handleResults}
+        />
+      <FinishedMessageWithCondition
+        condition={this.state.section === 'test' && this.state.finished }
+        testID={this.state.testID}
+        />
       </div>
     );
   }

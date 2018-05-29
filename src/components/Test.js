@@ -16,16 +16,18 @@ class Test extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState(update(this.state, {
-      questions: {$set: data.sections[nextProps.section].questions}
-    }));
-    window.scrollTo(0,0);
-    let elements = document.getElementsByTagName('input');
-    for(let i=0;i<elements.length;i++){
-      if(elements[i].checked){
-		      elements[i].checked = false;
+    if(nextProps.section+1 <= data.sections.length){
+      this.setState(update(this.state, {
+        questions: {$set: data.sections[nextProps.section].questions}
+      }));
+      let elements = document.getElementsByTagName('input');
+      for(let i=0;i<elements.length;i++){
+        if(elements[i].checked){
+  		      elements[i].checked = false;
         }
       }
+    }
+    window.scrollTo(0,0);
   }
 
   checkAnswer(question, answer){
