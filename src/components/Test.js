@@ -42,29 +42,22 @@ class Test extends Component {
     this.setState(newState);
   }
 
-  handleSubmit() {
+  handleSubmit({ target }) {
     let correctAnswers = this.state.answers.filter(v => v).length;
     let unanswered = this.state.answers.filter(item => item === null).length;
     if (unanswered > 0) {
       alert("You didn't finish the section");
     }
 
+    let finished =
+      this.props.section + 1 === data.sections.length ||
+      target.id === "finishButton";
+
     this.props.sendResults({
       correctAnswers,
       section: this.props.section,
-      finished: this.props.section + 1 === data.sections.length ? true : false
+      finished
     });
-
-    this.setState(
-      update(this.state, {
-        answers: {
-          $set: new Array(11)
-        }
-      }),
-      function() {
-        console.log("State set");
-      }
-    );
   }
 
   render() {
@@ -80,9 +73,13 @@ class Test extends Component {
               checkAnswer={this.checkAnswer}
             />
           ))}
-          <button onClick={this.handleSubmit}>Submit</button>
+          <button id="submitButton" onClick={e => this.handleSubmit(e)}>
+            Submit
+          </button>
           {this.props.section > 0 && (
-            <button onClick={this.props.onFinished}>Finished</button>
+            <button id="finishButton" onClick={e => this.handleSubmit(e)}>
+              Finished
+            </button>
           )}
         </div>
       </div>
