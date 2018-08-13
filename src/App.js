@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import update from 'immutability-helper';
-import PersonalInfo from './components/PersonalInfo';
-import FinishedMessage from './components/FinishedMessage';
-import Test from './components/Test';
-import ID from './lib/id';
-import conditioned from './components/ConditionedComponent';
+import React, { Component } from "react";
+import axios from "axios";
+import update from "immutability-helper";
+import PersonalInfo from "./components/PersonalInfo";
+import FinishedMessage from "./components/FinishedMessage";
+import Test from "./components/Test";
+import ID from "./lib/id";
+import conditioned from "./components/ConditionedComponent";
 
-const PersonalInfoWithCondition = (props) => conditioned(PersonalInfo, props);
-const TestWithCondition = (props) => conditioned(Test, props);
-const FinishedMessageWithCondition = (props) => conditioned(FinishedMessage, props);
+const PersonalInfoWithCondition = props => conditioned(PersonalInfo, props);
+const TestWithCondition = props => conditioned(Test, props);
+const FinishedMessageWithCondition = props =>
+  conditioned(FinishedMessage, props);
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      section: 'info',
+      section: "info",
       testSection: 0,
       results: [],
       finished: false,
@@ -24,30 +25,34 @@ class App extends Component {
     this.handleInfo = this.handleInfo.bind(this);
     this.handleResults = this.handleResults.bind(this);
     this.handleResultPosting = this.handleResults.bind(this);
+    this.finishExam = this.finishExam.bind(this);
   }
-  handleInfo(info){
+  handleInfo(info) {
     let newState = update(this.state, {
-      section: {$set: 'test'},
-      contact: {$set: info}
+      section: { $set: "test" },
+      contact: { $set: info }
     });
     this.setState(newState);
   }
 
-  handleResults(res){
+  handleResults(res) {
     let newState = update(this.state, {
-      results: {$push: [res.correctAnswers]},
-      testSection: {$apply: (section) => section+1},
-      finished: {$set: res.finished}
+      results: { $push: [res.correctAnswers] },
+      testSection: { $apply: section => section + 1 },
+      finished: { $set: res.finished }
     });
     this.setState(newState);
   }
 
-  componentDidUpdate(){
-    if(this.state.finished){
+  componentDidUpdate() {
+    if (this.state.finished) {
+      console.log("Sending results");
       let { testID } = this.state;
-      let store = 'https://www.jsonstore.io/65d8d594a3236f5b7fb12743bd0f3854f6f2c304dd6accae5485eb9a3b9579f3/tests/'+testID;
+      let store =
+        "https://www.jsonstore.io/65d8d594a3236f5b7fb12743bd0f3854f6f2c304dd6accae5485eb9a3b9579f3/tests/" +
+        testID;
       axios({
-        method: 'post',
+        method: "post",
         url: store,
         data: {
           contact: this.state.contact,
@@ -56,22 +61,31 @@ class App extends Component {
       });
     }
   }
+  finishExam() {
+    alert("Finishing exam!");
+    this.setState(
+      update(this.state, {
+        finished: { $set: true }
+      })
+    );
+  }
   render() {
     return (
       <div>
-      <h1>FILEX Placement Exam</h1>
-      <PersonalInfoWithCondition
-        condition={this.state.section === 'info'}
-        sendInfo={this.handleInfo}
+        <h1>FILEX Placement Exam</h1>
+        <PersonalInfoWithCondition
+          condition={this.state.section === "info"}
+          sendInfo={this.handleInfo}
         />
-      <TestWithCondition
-        condition={this.state.section === 'test' && !this.state.finished}
-        section={this.state.testSection}
-        sendResults={this.handleResults}
+        <TestWithCondition
+          condition={this.state.section === "test" && !this.state.finished}
+          section={this.state.testSection}
+          sendResults={this.handleResults}
+          onFinished={this.finishExam}
         />
-      <FinishedMessageWithCondition
-        condition={this.state.section === 'test' && this.state.finished }
-        testID={this.state.testID}
+        <FinishedMessageWithCondition
+          condition={this.state.section === "test" && this.state.finished}
+          testID={this.state.testID}
         />
       </div>
     );
