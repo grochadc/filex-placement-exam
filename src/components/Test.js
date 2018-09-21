@@ -74,11 +74,11 @@ class Test extends Component {
             />
           ))}
           <button id="submitButton" onClick={e => this.handleSubmit(e)}>
-            Submit
+            Siguiente Sección
           </button>
           {this.props.section > 0 && (
             <button id="finishButton" onClick={e => this.handleSubmit(e)}>
-              Finished
+              Rendirme
             </button>
           )}
         </div>
