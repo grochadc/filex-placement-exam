@@ -58,7 +58,7 @@ class App extends Component {
           contact: this.state.contact,
           results: [this.state.results]
         }
-      });
+      }).catch(err => alert("There was an error sending results"));
     }
   }
   finishExam() {
