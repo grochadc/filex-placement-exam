@@ -21,12 +21,16 @@ class App extends Component {
       testSection: 0,
       results: [],
       finished: false,
-      testID: ID()
+      testID: ID(),
+      postingError: false,
+      resultsPosted: false,
+      postingErrorResolved: false
     };
     this.handleInfo = this.handleInfo.bind(this);
     this.handleResults = this.handleResults.bind(this);
     this.handleResultPosting = this.handleResults.bind(this);
     this.finishExam = this.finishExam.bind(this);
+    this.postResults = this.postResults.bind(this);
   }
   handleInfo(info) {
     let newState = update(this.state, {
@@ -45,21 +49,43 @@ class App extends Component {
     this.setState(newState);
   }
 
-  componentDidUpdate() {
-    if (this.state.finished) {
-      console.log("Sending results");
-      let { testID } = this.state;
-      let store =
-        "https://www.jsonstore.io/65d8d594a3236f5b7fb12743bd0f3854f6f2c304dd6accae5485eb9a3b9579f3/tests/" +
-        testID;
-      axios({
-        method: "post",
-        url: store,
-        data: {
-          contact: this.state.contact,
-          results: [this.state.results]
+  postResults() {
+    let { testID } = this.state;
+    let store =
+      "https://www.jsonstore.io/65d8d594a3236f5b7fb12743bd0f3854f6f2c304dd6accae5485eb9a3b9579f3/tests/" +
+      testID;
+    axios({
+      method: "post",
+      url: store,
+      data: {
+        contact: this.state.contact,
+        results: [this.state.results]
+      }
+    })
+      .then(() =>
+        this.setState(
+          update(this.state, {
+            postingError: { $set: false },
+            resultsPosted: { $set: true }
+          })
+        )
+      )
+      .catch(err => {
+        if (!this.state.postingError) {
+          this.setState(
+            update(this.state, {
+              postingError: { $set: true },
+              resultsPosted: { $set: false }
+            })
+          );
         }
-      }).catch(err => alert("There was an error sending results"));
+      });
+  }
+
+  componentDidUpdate() {
+    if (this.state.finished && !this.state.resultsPosted) {
+      console.log("Sending results");
+      this.postResults();
     }
   }
   finishExam() {
@@ -87,6 +113,8 @@ class App extends Component {
         <FinishedMessageWithCondition
           condition={this.state.section === "test" && this.state.finished}
           testID={this.state.testID}
+          error={this.state.postingError}
+          postResults={this.postResults}
         />
       </Container>
     );
