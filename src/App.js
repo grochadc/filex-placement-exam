@@ -23,8 +23,7 @@ class App extends Component {
       finished: false,
       testID: ID(),
       postingError: false,
-      resultsPosted: false,
-      postingErrorResolved: false
+      resultsPosted: false
     };
     this.handleInfo = this.handleInfo.bind(this);
     this.handleResults = this.handleResults.bind(this);
