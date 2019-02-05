@@ -3,6 +3,11 @@ import React, { Component } from "react";
 import update from "immutability-helper";
 import Question from "./Question";
 import data from "../database/Questions.json";
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  margin: 0 20px 30px 0;
+`;
 
 class Test extends Component {
   constructor(props) {
@@ -73,13 +78,13 @@ class Test extends Component {
               checkAnswer={this.checkAnswer}
             />
           ))}
-          <button id="submitButton" onClick={e => this.handleSubmit(e)}>
+          <StyledButton id="submitButton" onClick={e => this.handleSubmit(e)}>
             Siguiente Sección
-          </button>
+          </StyledButton>
           {this.props.section > 0 && (
-            <button id="finishButton" onClick={e => this.handleSubmit(e)}>
+            <StyledButton id="finishButton" onClick={e => this.handleSubmit(e)}>
               Rendirme
-            </button>
+            </StyledButton>
           )}
         </div>
       </div>

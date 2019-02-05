@@ -6,6 +6,7 @@ import FinishedMessage from "./components/FinishedMessage";
 import Test from "./components/Test";
 import ID from "./lib/id";
 import conditioned from "./components/ConditionedComponent";
+import { Title, Container } from "./components/Presentational";
 
 const PersonalInfoWithCondition = props => conditioned(PersonalInfo, props);
 const TestWithCondition = props => conditioned(Test, props);
@@ -71,8 +72,8 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>FILEX Placement Exam</h1>
+      <Container>
+        <Title>FILEX Placement Exam</Title>
         <PersonalInfoWithCondition
           condition={this.state.section === "info"}
           sendInfo={this.handleInfo}
@@ -87,7 +88,7 @@ class App extends Component {
           condition={this.state.section === "test" && this.state.finished}
           testID={this.state.testID}
         />
-      </div>
+      </Container>
     );
   }
 }

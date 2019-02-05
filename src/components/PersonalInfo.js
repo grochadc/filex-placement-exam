@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container } from "./Presentational";
 
 const majors = [
   { value: "agn", option: "Agronegocios" },
@@ -47,7 +48,7 @@ class PersonalInfo extends Component {
   }
   render() {
     return (
-      <div className="personal-data">
+      <Container>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="name">Nombre: </label>
           <input type="text" id="name" ref="name" />{" "}
@@ -73,7 +74,7 @@ class PersonalInfo extends Component {
           <br />
           <button type="submit">Submit and Show Test</button>
         </form>
-      </div>
+      </Container>
     );
   }
 }
