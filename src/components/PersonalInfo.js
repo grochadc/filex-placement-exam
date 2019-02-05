@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "./Presentational";
+import styled from "styled-components";
 
 const majors = [
   { value: "agn", option: "Agronegocios" },
@@ -20,6 +20,17 @@ const majors = [
   { value: "otro", option: "Otro" }
 ];
 
+const FormLine = styled.div`
+  margin: 15px 0 15px 0;
+`;
+const FormItem = styled.span`
+  margin-right: 10px;
+`;
+
+const FormContainer = styled.div`
+  width: 60%;
+  margin: auto;
+`;
 class PersonalInfo extends Component {
   constructor(props) {
     super(props);
@@ -48,33 +59,44 @@ class PersonalInfo extends Component {
   }
   render() {
     return (
-      <Container>
+      <FormContainer>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Nombre: </label>
-          <input type="text" id="name" ref="name" />{" "}
-          <label htmlFor="code">Codigo: </label>
-          <input type="text" id="code" ref="code" />
-          <br />
-          <label htmlFor="major">Carrera: </label>
-          <select name="major" ref="major">
-            <option value="" disabled selected>
-              Select your major
-            </option>
-            {majors.map((m, i) => (
-              <option key={i} value={m.value}>
-                {m.option}
+          <FormLine>
+            <FormItem>
+              <label htmlFor="name">Nombre: </label>
+              <input type="text" id="name" ref="name" />
+            </FormItem>
+            <FormItem>
+              <label htmlFor="code">Codigo: </label>
+              <input type="text" id="code" ref="code" />
+            </FormItem>
+          </FormLine>
+          <FormLine>
+            <label htmlFor="major">Carrera: </label>
+            <select name="major" ref="major">
+              <option value="" disabled selected>
+                Select your major
               </option>
-            ))}
-          </select>
-          <br />
-          <label htmlFor="email">eMail: </label>
-          <input type="email" id="email" ref="email" />{" "}
-          <label htmlFor="cel">Celular: </label>
-          <input type="text" id="cel" ref="cellphone" />
-          <br />
+              {majors.map((m, i) => (
+                <option key={i} value={m.value}>
+                  {m.option}
+                </option>
+              ))}
+            </select>
+          </FormLine>
+          <FormLine>
+            <FormItem>
+              <label htmlFor="email">eMail: </label>
+              <input type="email" id="email" ref="email" />
+            </FormItem>
+            <FormItem>
+              <label htmlFor="cel">Celular: </label>
+              <input type="text" id="cel" ref="cellphone" />
+            </FormItem>
+          </FormLine>
           <button type="submit">Submit and Show Test</button>
         </form>
-      </Container>
+      </FormContainer>
     );
   }
 }
